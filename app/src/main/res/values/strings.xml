@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">QuizAppJ</string>
+
+    <string name="tv_description">Проверь свои знания</string>
+
+    <string name="tap_again">Нажмите Назад еще раз для выхода</string>
 </resources>
