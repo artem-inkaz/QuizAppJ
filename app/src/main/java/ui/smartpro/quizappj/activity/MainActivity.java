@@ -1,6 +1,5 @@
-package ui.smartpro.quizappj;
+package ui.smartpro.quizappj.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
@@ -20,9 +19,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-import ui.smartpro.quizappj.activity.AboutDevActivity;
-import ui.smartpro.quizappj.activity.BaseActivity;
-import ui.smartpro.quizappj.activity.CustomUrlActivity;
+import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 import ui.smartpro.quizappj.utilities.AppUtilities;
 

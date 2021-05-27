@@ -10,7 +10,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import ui.smartpro.quizappj.MainActivity;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 
