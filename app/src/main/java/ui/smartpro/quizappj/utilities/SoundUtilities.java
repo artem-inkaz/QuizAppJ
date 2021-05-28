@@ -1,10 +1,11 @@
 package ui.smartpro.quizappj.utilities;
 
 public class SoundUtilities {
+    //Переменные будут хранить пути к звукам, имена и идентификаторы файлов
     private String mAssetPath;
     private String mName;
     private Integer mSoundId;
-
+//В конструктор передаем путь к файлу, выполняем над ним необходимые преобразования и получаем имя ресурса
     public SoundUtilities(String assetPath) {
         mAssetPath = assetPath;
         String[] components = assetPath.split("/");
