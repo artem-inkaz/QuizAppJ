@@ -6,7 +6,7 @@ import android.content.Intent;
 import java.util.ArrayList;
 
 import ui.smartpro.quizappj.constants.AppConstants;
-import ui.smartpro.quizappj.models.ResultModel;
+import ui.smartpro.quizappj.models.quiz.ResultModel;
 
 public class ActivityUtilities {
 

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.constants.AppConstants;
 import ui.smartpro.quizappj.listeners.ListitemClickListener;
-import ui.smartpro.quizappj.models.ResultModel;
+import ui.smartpro.quizappj.models.quiz.ResultModel;
 
 // адаптер списка, который создает массив элементов списка и заполняет ними список
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {

@@ -1,4 +1,4 @@
-package ui.smartpro.quizappj.models;
+package ui.smartpro.quizappj.models.quiz;
 
 import android.os.Parcel;
 import android.os.Parcelable;

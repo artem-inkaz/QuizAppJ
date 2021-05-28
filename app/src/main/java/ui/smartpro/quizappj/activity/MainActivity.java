@@ -34,7 +34,7 @@ import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.adapters.CategoryAdapter;
 import ui.smartpro.quizappj.constants.AppConstants;
 import ui.smartpro.quizappj.listeners.ListitemClickListener;
-import ui.smartpro.quizappj.models.CategoryModel;
+import ui.smartpro.quizappj.models.quiz.CategoryModel;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 import ui.smartpro.quizappj.utilities.AppUtilities;
 

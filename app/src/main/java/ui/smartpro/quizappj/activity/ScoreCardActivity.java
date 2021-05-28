@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.adapters.ResultAdapter;
 import ui.smartpro.quizappj.constants.AppConstants;
-import ui.smartpro.quizappj.models.ResultModel;
+import ui.smartpro.quizappj.models.quiz.ResultModel;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 
 public class ScoreCardActivity extends BaseActivity implements OnChartValueSelectedListener {
