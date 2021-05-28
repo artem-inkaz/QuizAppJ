@@ -3,7 +3,10 @@ package ui.smartpro.quizappj.utilities;
 import android.app.Activity;
 import android.content.Intent;
 
+import java.util.ArrayList;
+
 import ui.smartpro.quizappj.constants.AppConstants;
+import ui.smartpro.quizappj.models.ResultModel;
 
 public class ActivityUtilities {
 
@@ -41,6 +44,20 @@ public class ActivityUtilities {
     public void invokeCommonQuizActivity(Activity activity, Class<?> tClass, String categoryId, boolean shouldFinish) {
         Intent intent = new Intent(activity, tClass);
         intent.putExtra(AppConstants.BUNDLE_KEY_INDEX, categoryId);
+        activity.startActivity(intent);
+        if (shouldFinish) {
+            activity.finish();
+        }
+    }
+//Для вызова экрана результатов
+    public void invokeScoreCardActivity(Activity activity, Class<?> tClass, int questionsCount, int score, int wrongAns, int skip, String categoryId, ArrayList<ResultModel> resultList, boolean shouldFinish) {
+        Intent intent = new Intent(activity, tClass);
+        intent.putExtra(AppConstants.BUNDLE_KEY_SCORE, score);
+        intent.putExtra(AppConstants.QUESTIONS_IN_TEST, questionsCount);
+        intent.putExtra(AppConstants.BUNDLE_KEY_WRONG_ANS, wrongAns);
+        intent.putExtra(AppConstants.BUNDLE_KEY_SKIP, skip);
+        intent.putExtra(AppConstants.BUNDLE_KEY_INDEX, categoryId);
+        intent.putParcelableArrayListExtra(AppConstants.BUNDLE_KEY_ITEM, resultList);
         activity.startActivity(intent);
         if (shouldFinish) {
             activity.finish();

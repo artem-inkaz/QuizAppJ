@@ -32,6 +32,7 @@ import ui.smartpro.quizappj.constants.AppConstants;
 import ui.smartpro.quizappj.data.AppPreference;
 import ui.smartpro.quizappj.listeners.ListitemClickListener;
 import ui.smartpro.quizappj.models.QuizModel;
+import ui.smartpro.quizappj.models.ResultModel;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 import ui.smartpro.quizappj.utilities.BeatBox;
 import ui.smartpro.quizappj.utilities.DialogUtilities;
@@ -53,6 +54,7 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
     private List<QuizModel> mItemList;
     ArrayList<String> mOptionList;
     ArrayList<String> mBackgroundColorList;
+    private ArrayList<ResultModel> mResultList;
 
     private int mQuestionPosition = 0;
     private int mQuestionsCount = 0;
@@ -89,6 +91,7 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
         mActivity = QuizActivity.this;
         mContext = mActivity.getApplicationContext();
 
+
         Intent intent = getIntent();
         if (intent != null) {
             mCategoryId = intent.getStringExtra(AppConstants.BUNDLE_KEY_INDEX);
@@ -97,7 +100,7 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
         mItemList = new ArrayList<>();
         mOptionList = new ArrayList<>();
         mBackgroundColorList = new ArrayList<>();
-        //TODO: mResultList = new ArrayList<>();
+        mResultList = new ArrayList<>();
 
         mBeatBox = new BeatBox(mActivity);
         mSounds = mBeatBox.getSounds();
@@ -195,7 +198,7 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
                             AppConstants.BUNDLE_KEY_SKIP_OPTION);
                     dialog.show(manager, AppConstants.BUNDLE_KEY_DIALOG_FRAGMENT);
                 } else {
-                    //TODO: updateResultSet();
+                    updateResultSet();
                     setNextQuestion();
                 }
             }
@@ -322,7 +325,8 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
             DialogUtilities dialog = DialogUtilities.newInstance(getString(R.string.reward_dialog_title), getString(R.string.reward_dialog_message), getString(R.string.yes), getString(R.string.no), AppConstants.BUNDLE_KEY_REWARD_OPTION);
             dialog.show(manager, AppConstants.BUNDLE_KEY_DIALOG_FRAGMENT);
         } else {
-            //TODO: invoke ScoreCardActivity
+            ActivityUtilities.getInstance().invokeScoreCardActivity(mActivity, ScoreCardActivity.class, mQuestionsCount, mScore, mWrongAns, mSkip, mCategoryId, mResultList, true);
+            AppPreference.getInstance(mActivity).setQuizResult(mCategoryId, mScore);
         }
     }
 //очищает списки ответов и цветов для их фона, и прокручивает список в начальную позицию.
@@ -445,20 +449,27 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
                 ActivityUtilities.getInstance().invokeNewActivity(mActivity, MainActivity.class, true);
             } else if (viewIdText.equals(AppConstants.BUNDLE_KEY_SKIP_OPTION)) {
                 mSkip++;
-                //TODO: mIsSkipped = true;
+                mIsSkipped = true;
                 mGivenAnsText = getResources().getString(R.string.skipped_text);
                 mCorrectAnsText = mItemList.get(mQuestionPosition).getAnswers().get(mItemList.get(mQuestionPosition).getCorrectAnswer());
-                //TODO: updateResultSet();
+                updateResultSet();
                 setNextQuestion();
             } else if (viewIdText.equals(AppConstants.BUNDLE_KEY_REWARD_OPTION)) {
                //TODO:  mRewardedVideoAd.show();
             }
         } else if (!isOkPressed && viewIdText.equals(AppConstants.BUNDLE_KEY_REWARD_OPTION)) {
-            //TODO: invoke ScoreCardActivity
+            ActivityUtilities.getInstance().invokeScoreCardActivity(mActivity, ScoreCardActivity.class, mQuestionsCount, mScore, mWrongAns, mSkip, mCategoryId, mResultList, true);
             AppPreference.getInstance(mContext).setQuizResult(mCategoryId, mScore);
             AppPreference.getInstance(mContext).setQuizQuestionsCount(mCategoryId, mQuestionsCount);
         }
     }
+//для наполнения списка результатов
+    public void updateResultSet() {
+        mResultList.add(new ResultModel(mQuestionText, mGivenAnsText, mCorrectAnsText, mIsCorrect, mIsSkipped));
+        mIsCorrect = false;
+        mIsSkipped = false;
+    }
+
 // будет вызван в случае уничножения активити, нужно вызвать метод release() класса BeatBox
 // для освобождения ресурсов медиаплеера.
 // Предварительно нужно переопределить метод onDestroy() в классе BaseActivity.
