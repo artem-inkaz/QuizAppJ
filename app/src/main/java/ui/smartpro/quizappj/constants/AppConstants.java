@@ -61,4 +61,9 @@ public class AppConstants {
     // pie chart constants
     public static final float TRANSPARENT_CIRCLE_RADIUS = 65f;
     public static final int ANIMATION_VALUE = 2000;
+
+    // Первый для имени файла хранения настроек приложения,
+    // а второй для параметра включения — выключения звука
+    public static final String APP_PREF_NAME = "quiz_app_pref";
+    public static final String KEY_SOUND = "sound";
 }
