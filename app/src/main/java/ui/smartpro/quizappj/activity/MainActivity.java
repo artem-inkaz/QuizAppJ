@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.adapters.CategoryAdapter;
 import ui.smartpro.quizappj.constants.AppConstants;
+import ui.smartpro.quizappj.listeners.ListitemClickListener;
 import ui.smartpro.quizappj.models.CategoryModel;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 import ui.smartpro.quizappj.utilities.AppUtilities;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity {
 
         initLoader();
         loadData();
+        initListener();
 
         //Сначала создаем профайл пользователя — здесь будет просто иконка приложения,
         // поскольку авторизация в нашем приложении не используется
@@ -234,5 +236,18 @@ public class MainActivity extends BaseActivity {
         }
         hideLoader();
         adapter.notifyDataSetChanged();
+    }
+
+    private void initListener() {
+
+        // recycler list item click listener
+        adapter.setItemClickListener(new ListitemClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+
+                CategoryModel model = categoryList.get(position);
+                ActivityUtilities.getInstance().invokeCommonQuizActivity(activity, QuizPromptActivity.class, model.getCategoryId(), true);
+            }
+        });
     }
 }

@@ -23,6 +23,15 @@
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.CustomUrlActivity" />
         <activity android:name=".activity.AboutDevActivity"></activity>
+        <activity
+            android:name=".activity.QuizPromptActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".activity.QuizActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
