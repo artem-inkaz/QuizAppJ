@@ -1,6 +1,8 @@
 package ui.smartpro.quizappj.activity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,7 +21,19 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import ui.smartpro.quizappj.R;
+import ui.smartpro.quizappj.adapters.CategoryAdapter;
+import ui.smartpro.quizappj.constants.AppConstants;
+import ui.smartpro.quizappj.models.CategoryModel;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 import ui.smartpro.quizappj.utilities.AppUtilities;
 
@@ -33,6 +47,10 @@ public class MainActivity extends BaseActivity {
     private AccountHeader header = null;
     private Drawer drawer = null;
 
+    private ArrayList<CategoryModel> categoryList;
+    private CategoryAdapter adapter = null;
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +58,21 @@ public class MainActivity extends BaseActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    ////Объявим и инициализируем переменные активити и контекста
+    //Объявим и инициализируем переменные активити и контекста
         activity = MainActivity.this;
         context = getApplicationContext();
+    // инициализация адаптера
+        recyclerView = (RecyclerView) findViewById(R.id.rvContent);
+        //Корневому макету разметки списка присваиваем GridLayoutManager, который определяет
+        // расположение элементов списка в виде сетки, указываем число столбцов — 2
+        recyclerView.setLayoutManager(new GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false));
+
+        categoryList = new ArrayList<>();
+        adapter = new CategoryAdapter(context, activity, categoryList);
+        recyclerView.setAdapter(adapter);
+
+        initLoader();
+        loadData();
 
         //Сначала создаем профайл пользователя — здесь будет просто иконка приложения,
         // поскольку авторизация в нашем приложении не используется
@@ -155,5 +185,54 @@ public class MainActivity extends BaseActivity {
         } else {
             AppUtilities.tapPromtToExit(this);
         }
+    }
+
+    private void loadData() {
+        showLoader();
+        loadJson();
+    }
+//загружает json файл со списком тестов по пути, указанном в константе
+    private void loadJson() {
+        StringBuffer sb = new StringBuffer();
+        BufferedReader br = null;
+        try{
+            br = new BufferedReader(new InputStreamReader(getAssets().open(AppConstants.CONTENT_FILE)));
+            String temp;
+            while ((temp = br.readLine()) != null)
+                sb.append(temp);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        parseJson(sb.toString());
+    }
+//разбираем файл, считываем данные и заполняем ними список тестов,
+// а затем методом notifyDataSetChanged() информируем адаптер о том,
+// что набор данных изменился.
+//Метод loadData() отображает процесс загрузки и вызывает метод loadJson().
+    private void parseJson(String jsonData) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonData);
+            JSONArray jsonArray = jsonObject.getJSONArray(AppConstants.JSON_KEY_ITEMS);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+
+                String categoryId = object.getString(AppConstants.JSON_KEY_CATEGORY_ID);
+                String categoryName = object.getString(AppConstants.JSON_KEY_CATEGORY_NAME);
+
+                categoryList.add(new CategoryModel(categoryId, categoryName));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        hideLoader();
+        adapter.notifyDataSetChanged();
     }
 }
