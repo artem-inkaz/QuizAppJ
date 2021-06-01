@@ -45,10 +45,20 @@ public class ScoreCardActivity extends BaseActivity implements OnChartValueSelec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//инициализируем переменные для контекста и получаем из интента количество правильных и
+// неправильных ответов, количество вопросов в тесте,
+// номер теста и список результатов для отображения.
         initVar();
+        //здесь инициализируем экранные компоненты
         initView();
+//получаем количество пропущенных вопросов, заполняем поля подписей диаграммы,
+// и в зависимости от результата теста отображаем мотивирующие тексты пользователю.
+// Затем вызываем метод showPieChart() для отображения диаграммы,
+// создаем адаптер и передаем его списку результатов
         initFunctionality();
+//определяем слушатели кнопкам и обрабатываем их нажатия, например, при нажатии «Поделиться» создаем
+// и отправляем интент для шеринга результатов в другие приложения,
+// а при нажатии кнопки «Начать заново» вызываем QuizPromptActivity
         initListener();
     }
 
@@ -142,7 +152,7 @@ public class ScoreCardActivity extends BaseActivity implements OnChartValueSelec
             }
         });
     }
-
+//строит и отображает диаграмму по результатам теста.
     public void showPieChart() {
         mPieChart = (PieChart) findViewById(R.id.piechart);
         mPieChart.setUsePercentValues(true);
@@ -181,7 +191,7 @@ public class ScoreCardActivity extends BaseActivity implements OnChartValueSelec
     @Override
     public void onNothingSelected() {
     }
-
+//создающий стрелку возврата в главное активити
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -192,7 +202,7 @@ public class ScoreCardActivity extends BaseActivity implements OnChartValueSelec
         }
         return super.onOptionsItemSelected(item);
     }
-
+//создающий стрелку возврата в главное активити
     @Override
     public void onBackPressed() {
         ActivityUtilities.getInstance().invokeNewActivity(mActivity, MainActivity.class, true);

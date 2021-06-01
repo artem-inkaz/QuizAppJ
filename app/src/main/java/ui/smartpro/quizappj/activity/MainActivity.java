@@ -1,14 +1,19 @@
 package ui.smartpro.quizappj.activity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -33,7 +38,9 @@ import java.util.ArrayList;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.adapters.CategoryAdapter;
 import ui.smartpro.quizappj.constants.AppConstants;
+import ui.smartpro.quizappj.data.sqlite.NotificationDbController;
 import ui.smartpro.quizappj.listeners.ListitemClickListener;
+import ui.smartpro.quizappj.models.notification.NotificationModel;
 import ui.smartpro.quizappj.models.quiz.CategoryModel;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
 import ui.smartpro.quizappj.utilities.AppUtilities;
@@ -45,6 +52,7 @@ public class MainActivity extends BaseActivity {
 
     private Toolbar toolbar;
 
+    private RelativeLayout mNotificationView;
     private AccountHeader header = null;
     private Drawer drawer = null;
 
@@ -240,6 +248,14 @@ public class MainActivity extends BaseActivity {
 
     private void initListener() {
 
+        //notification view click listener
+        mNotificationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtilities.getInstance().invokeNewActivity(activity, NotificationListActivity.class, false);
+            }
+        });
+
         // recycler list item click listener
         adapter.setItemClickListener(new ListitemClickListener() {
             @Override
@@ -249,5 +265,48 @@ public class MainActivity extends BaseActivity {
                 ActivityUtilities.getInstance().invokeCommonQuizActivity(activity, QuizPromptActivity.class, model.getCategoryId(), true);
             }
         });
+    }
+
+    // received new broadcast
+    // получает широковещательное сообщение и вызывает метод initNotification()
+    private BroadcastReceiver newNotificationReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            initNotification();
+        }
+    };
+    //читывает из БД новые непрочитанные уведомления и управляет отображением счетчика непрочитанных уведомлений
+    public void initNotification() {
+        NotificationDbController notificationDbController = new NotificationDbController(context);
+        TextView notificationCount = (TextView) findViewById(R.id.notificationCount);
+        notificationCount.setVisibility(View.INVISIBLE);
+
+        ArrayList<NotificationModel> notiArrayList = notificationDbController.getUnreadData();
+
+        if (notiArrayList != null && !notiArrayList.isEmpty()) {
+            int totalUnread = notiArrayList.size();
+            if (totalUnread > 0) {
+                notificationCount.setVisibility(View.VISIBLE);
+                notificationCount.setText(String.valueOf(totalUnread));
+            } else {
+                notificationCount.setVisibility(View.INVISIBLE);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    //регистрируем широковещательный приемник и вызываем метод initNotification()
+        //register broadcast receiver
+        IntentFilter intentFilter = new IntentFilter(AppConstants.NEW_NOTI);
+        LocalBroadcastManager.getInstance(this).registerReceiver(newNotificationReceiver, intentFilter);
+
+        initNotification();
+
+        // load full screen ad
+        // TODO:  AdsUtilities.getInstance(mContext).loadFullScreenAd(mActivity);
     }
 }

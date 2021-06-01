@@ -69,6 +69,7 @@
                     android:padding="0dp"
                     android:textColor="#FFF"
                     android:textSize="9sp"
+                    android:visibility="gone"
                     android:textStyle="bold"
                     android:background="@drawable/badge_circle"
                     tools:text="5"/>
