@@ -1,5 +1,6 @@
 package ui.smartpro.quizappj.models.notification;
 
+//модель уведомления в списке
 public class NotificationModel {
     private int id;
     private String title;

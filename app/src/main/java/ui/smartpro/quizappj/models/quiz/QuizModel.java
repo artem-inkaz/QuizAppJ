@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-
+//модель вопроса теста для наполнения данными из json
 public class QuizModel implements Parcelable {
     String question;
     ArrayList<String> answers;

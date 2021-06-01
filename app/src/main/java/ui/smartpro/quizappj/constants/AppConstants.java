@@ -1,5 +1,6 @@
 package ui.smartpro.quizappj.constants;
 
+//В этом классе будем хранить константы
 public class AppConstants {
     //для заголовка и адреса окна, которое будет открываться при переходе по ссылке
     public static final String EMPTY_STRING = "";

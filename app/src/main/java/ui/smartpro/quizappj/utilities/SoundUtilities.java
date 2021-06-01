@@ -1,5 +1,6 @@
 package ui.smartpro.quizappj.utilities;
 
+//вспомогательный класс для подготовки путей к звуковым ресурсам и работы с их свойствами
 public class SoundUtilities {
     //Переменные будут хранить пути к звукам, имена и идентификаторы файлов
     private String mAssetPath;

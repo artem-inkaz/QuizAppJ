@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.utilities.ActivityUtilities;
-
+// заставка при открытии
 public class SplashActivity extends AppCompatActivity {
 
     private ImageView imageView;

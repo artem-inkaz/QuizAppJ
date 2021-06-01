@@ -21,6 +21,7 @@ import ui.smartpro.quizappj.utilities.ActivityUtilities;
 import ui.smartpro.quizappj.utilities.DialogUtilities;
 
 //работа с сохраненными уведомлениями
+//для отображения списка уведомлений
 public class NotificationListActivity extends BaseActivity implements DialogUtilities.OnCompleteListener {
 
     private Context mContext;
@@ -68,6 +69,7 @@ public class NotificationListActivity extends BaseActivity implements DialogUtil
         // show banner ads
         //TODO: AdsUtilities.getInstance(mContext).showBannerAd((AdView) findViewById(R.id.adsView));
     }
+    //Основная работа с сохраненными уведомлениями
     //считываются данные из БД и заполняется список
     private void updateUI() {
         showLoader();

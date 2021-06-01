@@ -2,6 +2,9 @@ package ui.smartpro.quizappj.models.quiz;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+// создание списка
+
 //Имплементируем интерфейс Parcelable и реализуем его методы.
 // Parcelable используется для передачи объектов между активити
 public class CategoryModel implements Parcelable {

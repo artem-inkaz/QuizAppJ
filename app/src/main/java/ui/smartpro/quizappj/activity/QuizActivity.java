@@ -91,7 +91,6 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
         mActivity = QuizActivity.this;
         mContext = mActivity.getApplicationContext();
 
-
         Intent intent = getIntent();
         if (intent != null) {
             mCategoryId = intent.getStringExtra(AppConstants.BUNDLE_KEY_INDEX);
@@ -100,6 +99,7 @@ public class QuizActivity extends BaseActivity implements  DialogUtilities.OnCom
         mItemList = new ArrayList<>();
         mOptionList = new ArrayList<>();
         mBackgroundColorList = new ArrayList<>();
+        // инициализация
         mResultList = new ArrayList<>();
 
         mBeatBox = new BeatBox(mActivity);

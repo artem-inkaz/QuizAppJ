@@ -13,6 +13,7 @@ import java.util.Map;
 import ui.smartpro.quizappj.constants.AppConstants;
 import ui.smartpro.quizappj.data.sqlite.NotificationDbController;
 
+//сервис, который будет постоянно работать в фоне, чтобы отслеживать приходящие уведомления.
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import ui.smartpro.quizappj.constants.AppConstants;
 import ui.smartpro.quizappj.models.quiz.ResultModel;
 
+//Для вызова новых активити будем использовать общий метод
 public class ActivityUtilities {
 
     private static ActivityUtilities activityUtilities = null;

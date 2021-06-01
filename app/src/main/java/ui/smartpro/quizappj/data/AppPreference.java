@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.constants.AppConstants;
 
+//для работы с параметрами приложения — удобного сохранения и извлечения.
 public class AppPreference {
 
     private static Context mContext;

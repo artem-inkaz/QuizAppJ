@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//для воспроизведения звуков в процессе прохождения теста с помощью системных классов SoundPool и AudioManager
 public class BeatBox {
     private static final String SOUNDS_FOLDER = "all_sounds";
     private static final int MAX_SOUNDS = 5;

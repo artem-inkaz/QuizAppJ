@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.listeners.ListitemClickListener;
 
-
+//формирует список ответов для каждого вопроса.
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
 
     private Context mContext;

@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import ui.smartpro.quizappj.R;
 import ui.smartpro.quizappj.listeners.ListitemClickListener;
 import ui.smartpro.quizappj.models.quiz.CategoryModel;
+
+//адаптер списка
+
 //CategoryAdapter.ViewHolder, который используется для кэширования View-компонентов и последующего
 // быстрого доступа к ним. ViewHolder предоставляет прямую ссылку на каждый View-компонент.
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {

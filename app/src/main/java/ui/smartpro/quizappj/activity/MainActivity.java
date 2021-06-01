@@ -60,6 +60,7 @@ public class MainActivity extends BaseActivity {
     private CategoryAdapter adapter = null;
     private RecyclerView recyclerView;
 
+    //инициализируем компонеты и приступаем к реализации панели навигации
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -252,6 +253,7 @@ public class MainActivity extends BaseActivity {
         mNotificationView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //добавим обработку нажатия значка уведомлений в тулбаре
                 ActivityUtilities.getInstance().invokeNewActivity(activity, NotificationListActivity.class, false);
             }
         });
@@ -276,7 +278,8 @@ public class MainActivity extends BaseActivity {
             initNotification();
         }
     };
-    //читывает из БД новые непрочитанные уведомления и управляет отображением счетчика непрочитанных уведомлений
+    //Считывает из БД новые непрочитанные уведомления и управляет отображением счетчика
+    // непрочитанных уведомлений
     public void initNotification() {
         NotificationDbController notificationDbController = new NotificationDbController(context);
         TextView notificationCount = (TextView) findViewById(R.id.notificationCount);
